@@ -10,9 +10,9 @@
     <style>
         /* CSS Başlangıcı */
         :root {
-            --primary-color: #ff69b4; /* Sıcak Pembe */
-            --secondary-color: #8a2be2; /* Mor */
-            --bg-color: #fce4ec; /* Açık Pembe Arkaplan */
+            --primary-color: #ff69b4; 
+            --secondary-color: #8a2be2; 
+            --bg-color: #fce4ec; 
             --text-color: #444;
         }
 
@@ -175,8 +175,8 @@
         /* KAYDIRMALI GALERİ (SLIDER) STİLİ */
         #image-slider {
             position: relative;
-            max-width: 600px; /* Slider genişliği */
-            height: 400px; /* Slider yüksekliği */
+            max-width: 600px; 
+            height: 400px; 
             margin: 0 auto;
             overflow: hidden;
             border-radius: 10px;
@@ -195,7 +195,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(138, 43, 226, 0.7); /* Mor */
+            background: rgba(138, 43, 226, 0.7); 
             color: white;
             border: none;
             padding: 10px 15px;
@@ -307,7 +307,7 @@
             <div id="music-player">
                 <p>En sevdiğimiz şarkı eşliğinde anılarımız canlansın.</p>
                 <audio controls style="width: 100%; max-width: 400px; margin-top: 15px;">
-                    <source src="https://github.com/Mrnobody-19-tech/Mylove/raw/refs/heads/main/Canozan%20&%20%C5%9Eenceylik%20-%20Seni%20G%C3%B6rd%C3%BCm%20R%C3%BCyamda%20(Official%20Lyric%20Video)%20%5BtFQ9nYX1xOs%5D.mp3" type="audio/mpeg">
+                    <source src="https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/Canozan%20&%20%C5%9Een%C3%A7eylik%20-%20Seni%20G%C3%B6rd%C3%BCm%20R%C3%BCyamda%20(Official%20Lyric%20Video)%20%5BtFQ9nYX1xOs%5D-1.mp3" type="audio/mpeg">
                     Tarayıcınız ses dosyasını desteklemiyor.
                 </audio>
             </div>
@@ -333,26 +333,29 @@
 
     <script>
         
+        // Bu kod, tarayıcıyı /Mylove/ klasörüne yönlendirir.
+        // Bu, 404 hatasını çözer!
+        const BASE_PATH = "/Mylove/"; 
+        history.pushState(null, null, BASE_PATH);
+
         // =======================================================
         // --- 1. AYARLAMA: GİZLİ ŞİFRENİZİ BURAYA YAZIN ---
         // =======================================================
-        const SECRET_PASSWORD = "yedimart"; // İstenen şifre eklendi
+        const SECRET_PASSWORD = "yedimart";
         
         // =======================================================
         // --- 2. AYARLAMA: İLİŞKİ BAŞLANGIÇ TARİHİNİZİ BURAYA YAZIN (YIL, AY-1, GÜN) ---
         // =======================================================
-        // 07 Mart 2024 için (AY = 3 - 1 = 2)
-        const START_DATE = new Date(2024, 2, 7); // İstenen tarih eklendi
+        const START_DATE = new Date(2024, 2, 7);
         
         // =======================================================
         // --- 3. AYARLAMA: TÜM FOTOĞRAF LİNKLERİNİZİ BURAYA EKLEYİN ---
         // =======================================================
-        // Lütfen bu diziye sadece Imgur, GitHub Raw, vb. yerlerden aldığınız DİREKT URL'leri ekleyin.
         const IMAGE_LINKS = [
             "https://picsum.photos/600/400?random=11", 
             "https://picsum.photos/600/400?random=22", 
             "https://picsum.photos/600/400?random=33", 
-            // BURADAN SONRA KENDİ GERÇEK FOTOĞRAF LİNKLERİNİZİ EKLEYİN VE ÖRNEK LİNKLERİ SİLİN.
+            // BURAYA KENDİ RAW FOTOĞRAF LİNKLERİNİZİ EKLEYİN!
         ];
 
 
@@ -403,7 +406,7 @@
                 document.body.style.opacity = 1;
                 updateTimer(); 
                 setInterval(updateTimer, 1000); 
-                updateSlider(); // Galeriyi başlat
+                updateSlider(); 
             } else {
                 errorMsg.style.display = 'block';
                 setTimeout(() => { errorMsg.style.display = 'none'; }, 3000);
@@ -447,7 +450,6 @@
              document.getElementById('password-input').focus();
         });
         
-        // JAVASCRIPT SONU
     </script>
     
 </body>
