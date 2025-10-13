@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* CSS Başlangıcı - (Değişiklik yapılmadı) */
+        /* CSS Başlangıcı */
         :root {
             --primary-color: #ff69b4; 
             --secondary-color: #8a2be2; 
@@ -295,7 +295,7 @@
         <section id="gallery-section">
             <h2>Sonsuz Anılarımız</h2>
             <div id="image-slider">
-                <img id="slider-image" src="" alt="Sevgili Anıları" loading="lazy"> 
+                <img id="slider-image" src="" alt="Sevgili Anıları" loading="lazy">
                 <button id="prev-btn" class="slider-btn" onclick="changeSlide(-1)">&#10094;</button>
                 <button id="next-btn" class="slider-btn" onclick="changeSlide(1)">&#10095;</button>
             </div>
@@ -333,24 +333,22 @@
 
     <script>
         
-        // Bu kod, tarayıcıyı /Mylove/ klasörüne yönlendirir.
-        // Bu, 404 hatasını çözmek için eklenmiş, genellikle GitHub Pages'de işe yarar.
-        const BASE_PATH = "/Mylove/"; 
-        history.pushState(null, null, BASE_PATH);
+        // Önceki denemelerde pembe ekrana neden olan BASE_PATH ayarları kaldırıldı/yorum satırı yapıldı.
+        // const BASE_PATH = "/Mylove/"; 
+        // history.pushState(null, null, BASE_PATH);
 
         // =======================================================
         // --- 1. AYARLAMA: GİZLİ ŞİFRENİZİ BURAYA YAZIN ---
         // =======================================================
-        const SECRET_PASSWORD = "yedimart"; // LÜTFEN BUNU KENDİNİZE GÖRE DEĞİŞTİRİN
+        const SECRET_PASSWORD = "yedimart"; // ŞİFRENİZ
         
         // =======================================================
         // --- 2. AYARLAMA: İLİŞKİ BAŞLANGIÇ TARİHİNİZİ BURAYA YAZIN (YIL, AY-1, GÜN) ---
         // =======================================================
-        const START_DATE = new Date(2024, 2, 7); // Mart 7, 2024 (AYlar 0'dan başlar: Ocak=0, Şubat=1, Mart=2)
+        const START_DATE = new Date(2024, 2, 7); // Yıl, Ay (0=Ocak), Gün
         
         // =======================================================
-        // --- 3. AYARLAMA: TÜM FOTOĞRAF LİNKLERİNİZİ BURAYA EKLEYİN ---
-        // BURASI GÜNCELLENMİŞTİR: GitHub RAW linkler kullanılmıştır.
+        // --- 3. AYARLAMA: TÜM FOTOĞRAF LİNKLERİNİZİ BURAYA EKLEYİN (RAW LINKLER KULLANILDI) ---
         // =======================================================
         const IMAGE_LINKS = [
             "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/1f7f2218-589e-4e16-bcd7-10e50b5cc95f.jpeg",
@@ -386,14 +384,13 @@
                 return;
             }
 
-            // Görüntü değişimi için yumuşak geçiş efekti
             imgElement.style.opacity = 0;
             
             setTimeout(() => {
                 imgElement.src = IMAGE_LINKS[currentImageIndex];
                 indexElement.textContent = `${currentImageIndex + 1} / ${IMAGE_LINKS.length}`;
                 imgElement.style.opacity = 1;
-            }, 500); // CSS'deki 0.5s ile uyumlu
+            }, 500);
         }
 
         function changeSlide(direction) {
@@ -418,7 +415,7 @@
             if (input === SECRET_PASSWORD) {
                 document.getElementById('login-page').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
-                document.body.style.opacity = 1; // Giriş yapınca sayfayı görünür yap
+                document.body.style.opacity = 1; 
                 updateTimer(); 
                 setInterval(updateTimer, 1000); 
                 updateSlider(); 
@@ -431,6 +428,7 @@
         // ZAMAN SAYACI FONKSİYONU
         function updateTimer() {
             const now = new Date();
+            const START_DATE = new Date(2024, 2, 7); // Tarihi tekrar tanımlama gereği yok, ama burada tutarlılık için tekrar ekledim.
             const diff_ms = now.getTime() - START_DATE.getTime();
             
             if (diff_ms < 0) {
@@ -444,7 +442,6 @@
             let days = Math.floor(hours / 24);
             let years = Math.floor(days / 365.25);
             
-            // Kalan değerleri hesaplama
             seconds %= 60;
             minutes %= 60;
             hours %= 24;
@@ -463,7 +460,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-             // Sayfa yüklendiğinde şifre alanına odaklan
              document.getElementById('password-input').focus();
         });
         
