@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* CSS Başlangıcı */
+        /* CSS Başlangıcı - (Değişiklik yapılmadı) */
         :root {
             --primary-color: #ff69b4; 
             --secondary-color: #8a2be2; 
@@ -295,7 +295,7 @@
         <section id="gallery-section">
             <h2>Sonsuz Anılarımız</h2>
             <div id="image-slider">
-                <img id="slider-image" src="" alt="Sevgili Anıları" loading="lazy">
+                <img id="slider-image" src="" alt="Sevgili Anıları" loading="lazy"> 
                 <button id="prev-btn" class="slider-btn" onclick="changeSlide(-1)">&#10094;</button>
                 <button id="next-btn" class="slider-btn" onclick="changeSlide(1)">&#10095;</button>
             </div>
@@ -334,28 +334,42 @@
     <script>
         
         // Bu kod, tarayıcıyı /Mylove/ klasörüne yönlendirir.
-        // Bu, 404 hatasını çözer!
+        // Bu, 404 hatasını çözmek için eklenmiş, genellikle GitHub Pages'de işe yarar.
         const BASE_PATH = "/Mylove/"; 
         history.pushState(null, null, BASE_PATH);
 
         // =======================================================
         // --- 1. AYARLAMA: GİZLİ ŞİFRENİZİ BURAYA YAZIN ---
         // =======================================================
-        const SECRET_PASSWORD = "yedimart";
+        const SECRET_PASSWORD = "yedimart"; // LÜTFEN BUNU KENDİNİZE GÖRE DEĞİŞTİRİN
         
         // =======================================================
         // --- 2. AYARLAMA: İLİŞKİ BAŞLANGIÇ TARİHİNİZİ BURAYA YAZIN (YIL, AY-1, GÜN) ---
         // =======================================================
-        const START_DATE = new Date(2024, 2, 7);
+        const START_DATE = new Date(2024, 2, 7); // Mart 7, 2024 (AYlar 0'dan başlar: Ocak=0, Şubat=1, Mart=2)
         
         // =======================================================
         // --- 3. AYARLAMA: TÜM FOTOĞRAF LİNKLERİNİZİ BURAYA EKLEYİN ---
+        // BURASI GÜNCELLENMİŞTİR: GitHub RAW linkler kullanılmıştır.
         // =======================================================
         const IMAGE_LINKS = [
-            "https://picsum.photos/600/400?random=11", 
-            "https://picsum.photos/600/400?random=22", 
-            "https://picsum.photos/600/400?random=33", 
-            // BURAYA KENDİ RAW FOTOĞRAF LİNKLERİNİZİ EKLEYİN!
+            "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/1f7f2218-589e-4e16-bcd7-10e50b5cc95f.jpeg",
+            "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/36f9534b-842b-4aeb-a0e0-356f45ba8780_Original.jpeg",
+            "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/8817fbd3-ca7a-45aa-8d72-d1359c895588.jpeg",
+            "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/IMG_0428.jpeg",
+            "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/IMG_0440.jpeg",
+            "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/IMG_0446.jpeg",
+            "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/IMG_0469.jpeg",
+            "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/IMG_0479.jpeg",
+            "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/IMG_0780.jpeg",
+            "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/IMG_0781.jpeg",
+            "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/IMG_0783.jpeg",
+            "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/IMG_0784.jpeg",
+            "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/IMG_0785.png",
+            "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/IMG_4165_Original.jpeg",
+            "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/IMG_5303_Original.jpeg",
+            "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/IMG_5579_Original.jpeg",
+            "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/b31cae94-1453-45fd-9f49-6ecfc71006f6.jpeg"
         ];
 
 
@@ -372,13 +386,14 @@
                 return;
             }
 
+            // Görüntü değişimi için yumuşak geçiş efekti
             imgElement.style.opacity = 0;
             
             setTimeout(() => {
                 imgElement.src = IMAGE_LINKS[currentImageIndex];
                 indexElement.textContent = `${currentImageIndex + 1} / ${IMAGE_LINKS.length}`;
                 imgElement.style.opacity = 1;
-            }, 500);
+            }, 500); // CSS'deki 0.5s ile uyumlu
         }
 
         function changeSlide(direction) {
@@ -403,7 +418,7 @@
             if (input === SECRET_PASSWORD) {
                 document.getElementById('login-page').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
-                document.body.style.opacity = 1;
+                document.body.style.opacity = 1; // Giriş yapınca sayfayı görünür yap
                 updateTimer(); 
                 setInterval(updateTimer, 1000); 
                 updateSlider(); 
@@ -429,6 +444,7 @@
             let days = Math.floor(hours / 24);
             let years = Math.floor(days / 365.25);
             
+            // Kalan değerleri hesaplama
             seconds %= 60;
             minutes %= 60;
             hours %= 24;
@@ -447,6 +463,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+             // Sayfa yüklendiğinde şifre alanına odaklan
              document.getElementById('password-input').focus();
         });
         
