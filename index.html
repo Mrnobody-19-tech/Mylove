@@ -5,79 +5,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sana Özel Evrenim</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Özel Yazı Tipleri -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         /* CSS Başlangıcı */
         :root {
-            --primary-color: #ff69b4; /* Sıcak Pembe */
-            --secondary-color: #8a2be2; /* Parlak Mor */
-            --bg-color: #fce4ec; /* Açık Pembe Arka Plan */
-            --text-color: #444;
+            /* Tasarıma Uygun Pastel Renkler */
+            --primary-color: #f7a0b3; /* Yumuşak Pembe */
+            --secondary-color: #b88ce1; /* Pastel Mor/Lila */
+            --bg-color: #fcf4f5; /* Çok Açık Pembe/Krem Arka Plan (Tasarımdaki gibi) */
+            --card-bg: #fff; /* Kart Arka Planı */
+            --text-color: #333;
+            --light-text-color: #6a6a6a;
+            --heading-color: #c996a0; /* Soluk Başlık Rengi */
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Playfair Display', serif;
             color: var(--text-color);
             margin: 0;
             padding: 0;
             background-color: var(--bg-color);
-            /* HATA DÜZELTİLDİ: body opacity: 0 kaldırıldı. 
-               Artık giriş ekranı doğrudan görünecek. */
-            transition: none; 
-            opacity: 1; 
+            transition: opacity 0.5s; 
         }
         
-        /* GİRİŞ SAYFASI STİLİ */
+        /* GİRİŞ SAYFASI STİLİ (TASARIM KARTI) */
         #login-page {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); 
+            background-color: var(--bg-color); /* Ana arka plan rengi */
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 1000;
         }
-        #login-page h1 {
-            color: white;
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(2.5em, 8vw, 4em); 
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+
+        .login-card {
+            background-color: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 350px;
         }
+
+        .login-card h1 {
+            color: var(--text-color);
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            font-size: clamp(1.8em, 6vw, 2.2em); 
+            margin-bottom: 5px;
+        }
+        /* GÜNCELLENEN METİN */
+        .login-card p {
+            color: var(--light-text-color);
+            margin-bottom: 25px;
+            font-size: 0.9em;
+        }
+        
+        /* Input Stili */
         #login-page input {
             padding: 12px 15px;
-            border: none;
-            border-radius: 25px; 
-            margin-bottom: 15px;
-            width: 80%;
-            max-width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 10px; 
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 250px;
             font-size: 1em;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+            font-family: 'Playfair Display', serif;
         }
+        #login-page input::placeholder {
+             color: var(--primary-color);
+        }
+        
+        /* Buton Stili (Tasarıma Uygun Pastel Pembe) */
         #login-page button {
-            background-color: #fff; 
-            color: var(--secondary-color);
+            background-color: var(--primary-color); 
+            color: white;
             padding: 12px 40px;
             border: none;
-            border-radius: 25px;
+            border-radius: 10px;
             cursor: pointer;
             font-size: 1.1em;
             font-weight: 600;
             transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 250px;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(247, 160, 179, 0.4);
         }
         #login-page button:hover {
-            background-color: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
+            background-color: var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(184, 140, 225, 0.4);
+            transform: translateY(-1px);
         }
         
+        #error-message {
+            color: var(--primary-color);
+            margin-top: 15px;
+            font-size: 0.9em;
+            display: none;
+        }
+
         /* ANA İÇERİK STİLİ */
         #main-content {
             display: none; 
@@ -85,138 +121,227 @@
 
         /* Navigasyon */
         nav {
-            background-color: var(--secondary-color);
-            padding: 15px 20px;
+            background-color: var(--card-bg); /* Hafif, yumuşak bir arka plan */
+            padding: 10px 0;
             text-align: center;
             position: sticky; 
             top: 0;
             z-index: 999;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             display: flex; 
             justify-content: center;
             flex-wrap: wrap; 
         }
         nav a {
-            color: white;
+            color: var(--secondary-color);
             text-decoration: none;
             margin: 5px 12px; 
-            font-weight: 500;
-            transition: color 0.3s, transform 0.2s;
+            font-weight: 600;
+            transition: color 0.3s, border-bottom 0.3s;
             padding: 5px 8px;
-            border-radius: 5px;
+            border-bottom: 2px solid transparent;
         }
         nav a:hover {
             color: var(--primary-color);
-            background-color: rgba(255, 255, 255, 0.1);
+            border-bottom: 2px solid var(--primary-color);
         }
 
         /* Bölüm Stilleri */
         section {
-            padding: 50px 20px;
+            padding: 60px 20px;
             max-width: 1000px;
             margin: 0 auto;
-            min-height: 50vh; 
+            text-align: center; /* Tüm içeriği merkezlemek için */
         }
+        
+        /* Özel Başlık Stili (Tasarımdaki Gibi) */
         section h2 {
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(2em, 5vw, 3em);
-            color: var(--primary-color);
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2em, 6vw, 2.8em);
+            color: var(--heading-color); 
             text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 3px solid var(--secondary-color);
-            padding-bottom: 10px;
+            margin-bottom: 10px;
             display: inline-block;
-            margin-left: auto;
-            margin-right: auto;
+            position: relative;
+            padding-bottom: 20px;
+            font-weight: 400; /* Daha hafif font ağırlığı */
+        }
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 250px;
+            height: 1px;
+            background-color: var(--primary-color);
         }
 
-        /* Zamanlayıcı Stili */
+        /* Ana Sayfa (Hero) */
         #hero {
-            background: #fff;
-            padding: 60px 20px;
-            border-radius: 15px;
-            margin-top: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            background: none; /* Arka plan yok */
+            padding-top: 50px;
+            padding-bottom: 50px;
         }
         #hero h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: clamp(3em, 10vw, 5em);
-            color: var(--secondary-color);
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        #timer {
-            font-size: clamp(1.2em, 4vw, 1.8em);
+            font-size: clamp(3em, 12vw, 5em);
             color: var(--primary-color);
-            font-weight: 600;
             text-align: center;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        #hero p {
+            color: var(--secondary-color);
+            font-style: italic;
             margin-bottom: 30px;
-            white-space: pre-wrap; 
-            line-height: 1.5;
-            padding: 10px;
-            border: 2px dashed var(--primary-color);
-            border-radius: 10px;
+        }
+
+        /* Zamanlayıcı Stili */
+        #timer {
+            font-size: clamp(1.1em, 3vw, 1.5em);
+            color: var(--secondary-color);
+            font-weight: 500;
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px 10px;
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            white-space: pre-wrap;
+            line-height: 1.8;
+            border-left: 5px solid var(--primary-color);
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         /* Zaman Çizelgesi Stili */
         .timeline {
             position: relative;
             padding: 20px 0;
+            max-width: 600px;
+            margin: 0 auto;
         }
+        /* Dikey Çizgi */
         .timeline::after {
             content: '';
             position: absolute;
-            width: 3px;
-            background-color: var(--secondary-color);
+            width: 2px; 
+            background-color: var(--primary-color);
             top: 0;
             bottom: 0;
-            left: 18px; 
-            margin-left: 0;
+            left: 50%; 
+            margin-left: -1px;
+            z-index: 0;
         }
         .event {
-            padding: 10px 10px 10px 40px; 
+            padding: 10px;
             position: relative;
-            background-color: inherit;
-            width: 100%; 
+            background-color: transparent;
+            width: 100%;
             margin-bottom: 30px;
             box-sizing: border-box;
-        }
-        .event:nth-child(odd), .event:nth-child(even) { 
-            left: 0;
             text-align: left;
         }
+        
+        .event-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        .event-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Sol ve Sağ Konumlandırma */
+        .event:nth-child(even) {
+            left: 0;
+            padding-right: 55%;
+        }
+        .event:nth-child(odd) { 
+            left: 0;
+            padding-left: 55%;
+            text-align: right;
+        }
+        .event:nth-child(odd) .event-card {
+            margin-left: auto;
+        }
+        
+        /* Dot (Nokta) */
         .event::after {
             content: '';
             position: absolute;
-            width: 20px;
-            height: 20px;
-            left: 8px; 
-            right: auto;
-            background-color: white;
-            border: 3px solid var(--primary-color);
-            top: 15px;
+            width: 15px;
+            height: 15px;
+            background-color: var(--primary-color);
+            border: 3px solid var(--bg-color);
+            top: 25px;
             border-radius: 50%;
             z-index: 1;
         }
+        .event:nth-child(even)::after {
+            right: -8px; /* Sağ tarafa hizala */
+            left: auto;
+        }
+        .event:nth-child(odd)::after {
+            left: -8px; /* Sol tarafa hizala */
+            right: auto;
+        }
+        
         .event h3 {
             color: var(--secondary-color);
             margin-bottom: 5px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        /* Mobil Uyumlu Zaman Çizelgesi */
+        @media (max-width: 600px) {
+            .timeline::after {
+                left: 18px; 
+            }
+            .event:nth-child(even), .event:nth-child(odd) {
+                padding-right: 0;
+                padding-left: 40px; 
+                text-align: left;
+            }
+             .event:nth-child(odd) .event-card {
+                 margin-left: 0;
+             }
+            .event:nth-child(even)::after, .event:nth-child(odd)::after {
+                left: 8px; 
+                right: auto;
+            }
         }
         
-        /* KAYDIRMALI GALERİ (SLIDER) STİLİ */
+        /* KAYDIRMALI GALERİ (SLIDER) STİLİ - 4:5 ORANINDA */
+        #gallery-section {
+            padding-top: 30px;
+        }
         #image-slider {
             position: relative;
-            width: 90vw; 
-            max-width: 600px; 
-            height: 60vw; 
-            max-height: 450px; 
+            width: 95vw; 
+            max-width: 650px; 
             margin: 0 auto;
             overflow: hidden;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); 
+            border: 5px solid white;
+            
+            /* 4:5 Oranını Uygulama: Yükseklik = Genişlik * 1.25 */
+            height: 0; 
+            padding-bottom: calc(100% * 5 / 4); 
         }
 
         #slider-image {
+            position: absolute; 
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -228,24 +353,31 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(138, 43, 226, 0.7); 
+            background: rgba(247, 160, 179, 0.8); 
             color: white;
             border: none;
-            padding: 15px; 
+            padding: 12px 18px; 
             cursor: pointer;
-            font-size: 1.2em;
+            font-size: 1.6em;
             z-index: 10;
-            transition: background 0.3s;
+            transition: all 0.3s;
             border-radius: 50%; 
+            line-height: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
         .slider-btn:hover {
-            background: var(--primary-color);
+            background: var(--secondary-color);
+            transform: translateY(-50%) scale(1.1);
         }
         #prev-btn {
-            left: 10px;
+            left: 15px;
         }
         #next-btn {
-            right: 10px;
+            right: 15px;
+        }
+        #photo-index {
+            color: var(--light-text-color);
+            font-weight: 500;
         }
 
         /* Notlar ve Müzik Stili */
@@ -255,44 +387,86 @@
             align-items: center;
         }
         .note-card, #music-player {
-            background-color: white;
-            padding: 25px;
+            background-color: var(--card-bg);
+            padding: 30px 25px;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             margin-bottom: 20px;
             text-align: center;
-            width: 100%;
+            width: 90%;
             max-width: 450px;
+            border-left: 5px solid var(--secondary-color); /* Lila Çizgi */
         }
-        .note-card {
-            border-left: 5px solid var(--primary-color);
-        }
-        #notes-section .note-card h3 {
+        .note-card h3 {
              color: var(--secondary-color);
+             margin-top: 0;
+             margin-bottom: 5px;
+             font-weight: 600;
         }
-        #notes-section .note-card p {
+        .note-card p {
             font-family: 'Dancing Script', cursive;
-            font-size: 1.6em;
+            font-size: 1.8em;
             color: var(--primary-color);
-            margin: 10px 0 0;
+            margin: 0;
+            line-height: 1.4;
         }
 
         /* Müzik Player */
-        #music-player audio {
-            width: 100%; 
-            max-width: 400px; 
-            margin-top: 15px;
+        #music-player .iframe-container {
+            /* 16:9 Oranını korumak için (YouTube standardı) */
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 9 / 16 = 0.5625 */
+            height: 0;
+            overflow: hidden;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        #music-player .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        #music-player p {
+            font-size: 0.9em;
+            color: var(--light-text-color);
         }
 
-        /* Alt Bilgi Stili */
+
+        /* Alt Bilgi Stili (Tasarımdaki Yazı Stili ve Rengi) */
         footer {
-            background-color: var(--secondary-color);
-            color: white;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             text-align: center;
-            padding: 25px 20px;
+            padding: 40px 20px;
             font-size: 0.9em;
             margin-top: 40px;
+            border-top: 1px dashed var(--primary-color);
         }
+        footer p {
+            margin: 10px 0;
+        }
+        .footer-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2em;
+            color: var(--heading-color);
+            margin-bottom: 20px;
+        }
+
+        /* Başlık stili düzeltmesi */
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: clamp(2em, 6vw, 3em);
+            color: var(--heading-color);
+            text-align: center;
+            margin-top: 40px;
+        }
+
         /* CSS Sonu */
     </style>
 </head>
@@ -300,63 +474,77 @@
 
     <!-- GİRİŞ EKRANI -->
     <div id="login-page">
-        <h1>Hoş Geldin Sevgilim</h1>
-        <p style="color:white; margin-bottom: 15px;">Bu Evrene Girmek İçin Şifreyi Gir</p>
-        <input type="password" id="password-input" placeholder="Gizli Kelimeyi Yaz..." />
-        <button onclick="checkPassword()">Giriş Yap</button>
-        <p id="error-message" style="color: #ffdddd; margin-top: 10px; display: none;">Hata! Şifre yanlış. Lütfen doğru şifreyi gir.</p>
+        <div class="login-card">
+            <h1>Sadece bize ait bir yer...</h1>
+            <!-- YAZI GÜNCELLENDİ -->
+            <p>İlk tanışma tarihimiz <span style="color: var(--primary-color);">💕</span></p>
+            <input type="password" id="password-input" placeholder="Kalbimimin Şifresi" />
+            <button onclick="checkPassword()"><span style="margin-right: 8px;">❤️</span> Giriş Yap</button>
+            <p id="error-message">Hata! Şifre yanlış. Lütfen doğru şifreyi gir.</p>
+        </div>
     </div>
 
     <!-- ANA İÇERİK (ŞİFRE GİRİŞİNDEN SONRA GÖRÜNÜR) -->
     <div id="main-content">
         
         <nav>
-            <a href="#hero">ANASAYFA</a>
-            <a href="#timeline-section">ZAMAN ÇİZELGEMİZ</a>
-            <a href="#gallery-section">ANILARIMIZ</a>
-            <a href="#notes-section">NOTLARIMIZ</a>
-            <a href="#music-section">MÜZİĞİMİZ</a>
+            <a href="#hero">Anasayfa</a>
+            <a href="#timeline-section">Zaman Çizelgemiz</a>
+            <a href="#gallery-section">Saklı Cennetimiz</a> 
+            <a href="#notes-section">Dinlik Kutusu (Notlarımız)</a>
+            <a href="#music-section">Bize Özel Melodi</a>
         </nav>
 
         <section id="hero">
-            <h1>Sonsuz Aşkımız ❤️</h1>
-            <p style="text-align: center; font-size: 1.1em; color: var(--secondary-color);">
-                "Seninle olmak, en güzel hayalim..."
+            <p class="page-title" style="margin-bottom: 0;">Birlikte Sonsuza</p>
+            <h1>Sonsuz Aşkımız</h1>
+            <p style="text-align: center; font-size: 1.1em; color: var(--light-text-color); max-width: 500px; margin: 0 auto 30px;">
+                "Bazen kelimeler yetmez. Bu siteyi senin için, hikâyemiz için yaptım. Her satırında seni, her anında bizi göreceksin."
             </p>
             <div id="timer">Yükleniyor...</div>
         </section>
         
         <section id="timeline-section">
-            <h2>Bizim Hikayemiz</h2>
+            <h2>Zaman Çizelgemiz</h2>
             <div class="timeline">
                 
                 <div class="event">
-                    <h3>20.12.2023 - İlk Bakış</h3>
-                    <p>Her şeyin başladığı an... Göz göze geldiğimiz o büyülü saniye.</p>
+                    <div class="event-card">
+                        <h3>20.12.2023 - İlk Bakış</h3>
+                        <p>Takvimler bu anları sıradan bir tarih olarak görebilir, ama biz biliyoruz ki, her birinin ardında kocaman bir hikaye var. Kalplerimizin buluştuğu o ilk andan, bugüne kadar attığımız tüm önemli adımların izidir. Zaman durdu ve sadece seni sevdiğim o anları kaydetti.</p>
+                    </div>
                 </div>
 
                 <div class="event">
-                    <h3>05.01.2024 - İlk Randevu</h3>
-                    <p>Kalp atışlarımızın hızlandığı o unutulmaz kahve molası.</p>
+                    <div class="event-card">
+                        <h3>02.02.2025 - İlk Buluşma</h3>
+                        <p>Kalp atışlarımızın hızlandığı o unutulmaz buluşma. O günden sonra hayatımın anlamı tamamen değişti birtanem iyi kide değişti.</p>
+                    </div>
                 </div>
 
                 <div class="event">
-                    <h3>15.02.2024 - "Seni Seviyorum"</h3>
-                    <p>Sihirli üç kelimenin söylendiği o özel gece.</p>
+                    <div class="event-card">
+                        <h3>15.02.2024 - "Seni Seviyorum"</h3>
+                        <p>Sihirli üç kelimenin söylendiği o özel gece. Her şeyin daha da anlam kazandığı, evrenin hizalandığı an.</p>
+                    </div>
                 </div>
 
+                <!-- GÜNCELLENEN SÖZ/NİŞAN KISMI -->
                 <div class="event">
-                    <h3>07.03.2024 - Evlilik Teklifi</h3>
-                    <p>Sana sonsuza dek sürecek bir söz verdiğim o unutulmaz tarih.</p>
+                    <div class="event-card">
+                        <h3>2030 Hedefimiz - Sonsuz Aşk Yuvamız</h3>
+                        <p>Şimdilik sadece gülüyoruz, konuşuyoruz ama o yıl geldiğinde, sana kalbimi mühürlediğim bu yuvayı kuracağımıza eminim! Sonsuzluğa uzanan yolculuğumuzun en güzel durağı olacak.</p>
+                    </div>
                 </div>
                 
             </div>
         </section>
 
         <section id="gallery-section">
-            <h2>Sonsuz Anılarımız</h2>
+            <h2>Saklı Cennetimiz</h2> 
             <div id="image-slider">
-                <img id="slider-image" src="https://placehold.co/600x400/8a2be2/ffffff?text=Anilarimiz+Yukleniyor" alt="Sevgili Anıları" loading="lazy">
+                <!-- Placeholder, JS ile yüklenecek -->
+                <img id="slider-image" src="https://placehold.co/700x875/b88ce1/ffffff?text=4:5+Oraninda+Fotograf" alt="Sevgili Anıları" loading="lazy">
                 
                 <button id="prev-btn" class="slider-btn" onclick="changeSlide(-1)">&#10094;</button>
                 <button id="next-btn" class="slider-btn" onclick="changeSlide(1)">&#10095;</button>
@@ -364,34 +552,55 @@
             <p style="text-align: center; margin-top: 15px;" id="photo-index">0 / 0</p>
         </section>
 
-        <section id="music-section">
-            <h2>Bize Özel Melodi</h2>
-            <div id="music-player">
-                <p>En sevdiğimiz şarkı eşliğinde anılarımız canlansın.</p>
-                <audio controls style="width: 100%; max-width: 400px; margin-top: 15px;">
-                    <source src="https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/Canozan%20&%20%C5%9Een%C3%A7eylik%20-%20Seni%20G%C3%B6rd%C3%BCm%20R%C3%BCyamda%20(Official%20Lyric%20Video)%20%5BtFQ9nYX1xOs%5D-1.mp3" type="audio/mpeg">
-                    Tarayıcınız ses dosyasını desteklemiyor.
-                </audio>
-            </div>
-        </section>
-        
         <section id="notes-section">
-            <h2>Bizim Notlarımız</h2>
+            <h2>Dinlik Kutusu (Notlarımız)</h2>
             <div class="note-card">
-                <h3>Sana Özel Mesaj</h3>
-                <p>"Sensiz geçen her gün yarım... Sen benim tamamlanmışlığımsın."</p>
-            </div>
-            <div class="note-card">
-                <h3>Bir Hayalimiz</h3>
-                <p>"Beraber bir Ege kasabasına taşınma hayali, hep aklımda."</p>
+                <h3>12 Ekim 2025</h3>
+                <p>"Seninle olmak, evin en huzurlu köşesi gibi. Hayatımdaki her şeyin en güzel hali sensin. Birlikte yürüdüğümüz her gün için sana minnettarım. İyi ki varsın!"</p>
             </div>
             <div class="note-card">
                 <h3>Bugünün Sözü</h3>
-                <p>"Gözlerinin içindeki ışık, benim en büyük servetim."</p>
+                <p>"Seni ilk gördüğüm günden beri, hayatımın en güzel rüyasısın. Elimizi hiç bırakmayalım."</p>
+            </div>
+            <!-- GÜNCELLENEN DUYGUSAL NOT -->
+            <div class="note-card">
+                <h3>Gelecek Planımız</h3>
+                <p>
+                    Sen benim cennetimsin **güzel kızım**,
+                    Seninle bir yuvamız olsun istiyorum; içinde huzur, kahkaha, sevgi ve sonsuzluk barınsın.
+                    Bir gün sabahları senin sesinle uyanmayı, akşamları senin omzunda huzur bulmayı istiyorum.
+                    İnşallah ileride senin gibi dünyalar güzeli bir kız çocuğumuz olur...
+                    Senin gözlerinde kaybolurken, onun gözlerinde seni yeniden bulurum.
+                    Seninle yaşlanmak değil, seninle her gün yeniden doğmak istiyorum.
+                    Sen varken dünya değil, kalbim bile cennet oluyor.
+                    Bu kalp, senin adınla atmaya sonsuzluk yemini etti bir kere..
+                </p>
+            </div>
+        </section>
+
+        <section id="music-section">
+            <h2>Bize Özel Melodi</h2>
+            <div id="music-player">
+                <p>En sevdiğimiz melodi, hikayemizin sesi: Canozan & Şençeylik - Seni Gördüm Rüyamda</p>
+                <!-- YouTube Iframe ile çalma sorunu çözüldü -->
+                <div class="iframe-container">
+                    <!-- YouTube video ID'si: tFQ9nYX1xOs -->
+                    <!-- Sesi otomatik başlatmak için &autoplay=1 parametresi eklendi (mobil tarayıcılar izin vermeyebilir) -->
+                    <iframe 
+                        src="https://www.youtube.com/embed/tFQ9nYX1xOs?si=Qv6x5uA-X69w31lP&amp;controls=1" 
+                        title="YouTube video player" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
             </div>
         </section>
 
         <footer>
+            <p class="footer-quote">
+                "Aşk, sadece bir kelime değil; kelimelerle anlatılamayacak kadar büyük bir evrendir."
+            </p>
             <p>Tüm Kalbimle, [Kendi Adın] | &copy; 2024 Birlikte Sonsuza</p>
         </footer>
 
@@ -431,6 +640,9 @@
             "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/IMG_5579_Original.jpeg",
             "https://raw.githubusercontent.com/Mrnobody-19-tech/Mylove/main/b31cae94-1453-45fd-9f49-6ecfc71006f6.jpeg"
         ];
+        
+        // Müzik dosya URL'si (artık kullanılmıyor, YouTube embed kullanılıyor)
+        const AUDIO_URL = "https://www.youtube.com/embed/tFQ9nYX1xOs";
 
 
         let currentImageIndex = 0; 
@@ -441,23 +653,27 @@
             const indexElement = document.getElementById('photo-index');
             
             if (IMAGE_LINKS.length === 0) {
-                imgElement.src = "https://placehold.co/600x400/8a2be2/ffffff?text=FOTOGRAF+LINKLERI+GEREKLI";
+                imgElement.src = "https://placehold.co/700x875/b88ce1/ffffff?text=FOTOGRAF+LINKLERI+GEREKLI";
                 indexElement.textContent = "Hata: Fotoğraf linkleri JS koduna eklenmeli.";
                 return;
             }
 
+            // Resmi değiştirmeden önce opacity'yi sıfırla
             imgElement.style.opacity = 0;
             
             setTimeout(() => {
                 imgElement.src = IMAGE_LINKS[currentImageIndex];
+                
                 // Hata durumunda yedeği göster
                 imgElement.onerror = () => {
-                     imgElement.src = "https://placehold.co/600x400/ff69b4/ffffff?text=Resim+Yuklenemedi";
+                     imgElement.src = "https://placehold.co/700x875/f7a0b3/ffffff?text=Resim+Yuklenemedi";
                 };
 
                 indexElement.textContent = `${currentImageIndex + 1} / ${IMAGE_LINKS.length}`;
+                
+                // Resmi yükledikten sonra yavaşça görünür yap
                 imgElement.style.opacity = 1;
-            }, 500);
+            }, 500); // 500ms sonra resim değişir
         }
 
         function changeSlide(direction) {
@@ -481,16 +697,27 @@
             
             if (input === SECRET_PASSWORD) {
                 // Giriş başarılı, ana içeriği göster
-                document.getElementById('login-page').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
-                
-                // Başlangıçta zamanlayıcıyı ve slider'ı çalıştır
-                updateTimer(); 
-                setInterval(updateTimer, 1000); 
-                updateSlider(); 
+                document.getElementById('login-page').style.opacity = 0;
+                setTimeout(() => {
+                    document.getElementById('login-page').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                    // Sayfanın geri kalan içeriği için geçiş efekti
+                    setTimeout(() => {
+                         document.getElementById('main-content').style.opacity = 1;
+                    }, 50);
+
+                    // Başlangıçta zamanlayıcıyı ve slider'ı çalıştır
+                    updateTimer(); 
+                    setInterval(updateTimer, 1000); 
+                    updateSlider(); 
+                }, 500);
                 
             } else {
                 errorMsg.style.display = 'block';
+                // Giriş alanını temizle ve odakla
+                document.getElementById('password-input').value = '';
+                document.getElementById('password-input').focus();
+                
                 setTimeout(() => { errorMsg.style.display = 'none'; }, 3000);
             }
         }
@@ -520,21 +747,29 @@
 
             const seconds_remaining = Math.floor(remaining_ms / 1000);
 
-
             const output = 
                 `
-                ${years} YIL, 
-                ${days_remaining} GÜN, 
-                ${hours_remaining.toString().padStart(2, '0')} SAAT, 
-                ${minutes_remaining.toString().padStart(2, '0')} DAKİKA, 
+                ${years} YIL,
+                ${days_remaining} GÜN,
+                ${hours_remaining.toString().padStart(2, '0')} SAAT,
+                ${minutes_remaining.toString().padStart(2, '0')} DAKİKA,
                 ${seconds_remaining.toString().padStart(2, '0')} SANİYE
                 `;
 
             document.getElementById('timer').textContent = output;
         }
 
+        // Sayfa yüklendiğinde otomatik odaklanma ve şifre ile giriş yapma
         document.addEventListener('DOMContentLoaded', () => {
-             document.getElementById('password-input').focus();
+             const passwordInput = document.getElementById('password-input');
+             passwordInput.focus();
+             
+             // Enter tuşu ile giriş yapmayı sağla
+             passwordInput.addEventListener('keypress', function(e) {
+                 if (e.key === 'Enter') {
+                     checkPassword();
+                 }
+             });
         });
         
     </script>
